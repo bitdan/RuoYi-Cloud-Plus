@@ -23,8 +23,9 @@ COMMENT ON COLUMN er_namespace.create_dt IS '创建时间';
 COMMENT ON COLUMN er_namespace.update_dt IS '修改时间';
 COMMENT ON COLUMN er_namespace.deleted IS '逻辑删除 1、删除';
 
-INSERT INTO er_namespace VALUES (1, 'Development', 'dev', '', sysdate, sysdate, 0);
-INSERT INTO er_namespace VALUES (2, 'Production', 'prod', '', sysdate, sysdate, 0);
+-- id 为 IDENTITY 类型, 不能插入
+INSERT INTO er_namespace(name, unique_id, description, create_dt, update_dt, deleted) VALUES('Development', 'dev', '', sysdate, sysdate, 0 );
+INSERT INTO er_namespace(name, unique_id, description, create_dt, update_dt, deleted) VALUES ('Production', 'prod', '', sysdate, sysdate, 0);
 
 -- er_group_config
 CREATE TABLE er_group_config
@@ -61,7 +62,7 @@ COMMENT ON COLUMN er_group_config.bucket_index IS 'bucket';
 COMMENT ON COLUMN er_group_config.create_dt IS '创建时间';
 COMMENT ON COLUMN er_group_config.update_dt IS '修改时间';
 
-INSERT INTO er_group_config VALUES (1, 'dev', 'ruoyi_group', '', 'ER_cKqBTPzCsWA3VyuCfFoccmuIEGXjr5KT', 1, 1, 0, 1, 1, 4, sysdate, sysdate);
+INSERT INTO er_group_config(namespace_id, group_name, description, token, group_status, version, group_partition, id_generator_mode, init_scene, bucket_index, create_dt, update_dt) VALUES ('dev', 'ruoyi_group', '', 'ER_cKqBTPzCsWA3VyuCfFoccmuIEGXjr5KT', 1, 1, 0, 1, 1, 4, SYSDATE, SYSDATE );
 
 -- er_notify_config
 CREATE TABLE er_notify_config
@@ -369,7 +370,7 @@ COMMENT ON COLUMN er_system_user.create_dt IS '创建时间';
 COMMENT ON COLUMN er_system_user.update_dt IS '修改时间';
 
 -- er_pwd: admin
-INSERT INTO er_system_user VALUES (1, 'admin', '465c194afb65670f38322df087f0a9bb225cc257e43eb4ac5a0c98ef5b3173ac', 2, sysdate, sysdate);
+INSERT INTO er_system_user(username, password, role, create_dt, update_dt) VALUES ('admin', '465c194afb65670f38322df087f0a9bb225cc257e43eb4ac5a0c98ef5b3173ac', 2, SYSDATE, SYSDATE);
 
 -- er_system_user_permission
 CREATE TABLE er_system_user_permission
